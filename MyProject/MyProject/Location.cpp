@@ -1,5 +1,6 @@
 // Location.cpp
 #include "Location.h"
+#include <iostream>
 
 Location::Location() : name(""), maxSeats(0), numRows(0), numZones(0), seatsPerRow() {}
 
@@ -38,12 +39,29 @@ void Location::displayInfo() const {
 int Location::calculateTotalSeats() const {
     // Implement the calculation logic based on the characteristics of the location
     // For example, totalSeats = numRows * sum(seatsPerRow)
+    int totalSeats = numRows;
+    for (int seats : seatsPerRow) {
+        totalSeats += seats;
+    }
+    return totalSeats;
 }
 
 std::ostream& operator<<(std::ostream& out, const Location& location) {
-    // Implement the output operator based on your desired format
+    out << location.getName() << " " << location.getMaxSeats() << " " << location.getNumRows() << " "
+        << location.getNumZones() << " ";
+    for (int seats : location.getSeatsPerRow()) {
+        out << seats << " ";
+    }
+    return out;
 }
 
 std::istream& operator>>(std::istream& in, Location& location) {
-    // Implement the input operator to read data into the Location object
+    in >> location.name >> location.maxSeats >> location.numRows >> location.numZones;
+    location.seatsPerRow.clear();
+    int seats;
+    while (in >> seats) {
+        location.seatsPerRow.push_back(seats);
+    }
+    return in;
 }
+

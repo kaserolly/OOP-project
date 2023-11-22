@@ -37,8 +37,6 @@ void Location::displayInfo() const {
 }
 
 int Location::calculateTotalSeats() const {
-    // Implement the calculation logic based on the characteristics of the location
-    // For example, totalSeats = numRows * sum(seatsPerRow)
     int totalSeats = numRows;
     for (int seats : seatsPerRow) {
         totalSeats += seats;

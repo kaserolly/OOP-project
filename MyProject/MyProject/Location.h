@@ -27,10 +27,35 @@ public:
     // Other generic methods
     void displayInfo() const;
     int calculateTotalSeats() const;
-};
 
-// Overloaded operators
-std::ostream& operator<<(std::ostream& out, const Location& location);
-std::istream& operator>>(std::istream& in, Location& location);
+    // Rule of 3
+    Location(const Location& other);
+    Location& operator=(const Location& other);
+    ~Location();
+
+    // Overloaded operators
+    friend std::ostream& operator<<(std::ostream& out, const Location& location);
+    friend std::istream& operator>>(std::istream& in, Location& location);
+    int operator[](int index) const;
+    Location operator+(const Location& other) const;
+    Location operator-(const Location& other) const;
+    Location operator*(int multiplier) const;
+    Location operator/(int divisor) const;
+    Location& operator++();
+    Location operator++(int);
+    Location& operator--();
+    Location operator--(int);
+    explicit operator int() const;
+    bool operator!() const;
+    bool operator<(const Location& other) const;
+    bool operator>(const Location& other) const;
+    bool operator<=(const Location& other) const;
+    bool operator>=(const Location& other) const;
+    bool operator==(const Location& other) const;
+
+private:
+    void copyFrom(const Location& other);
+    void clear();
+};
 
 #endif // LOCATION_H

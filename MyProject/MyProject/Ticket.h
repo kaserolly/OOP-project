@@ -11,7 +11,6 @@ private:
     int id;
     std::string type;
 
-public:
     Ticket();
     Ticket(const std::string& type);
 

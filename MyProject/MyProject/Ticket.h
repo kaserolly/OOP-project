@@ -1,36 +1,40 @@
+// Ticket.h
 #ifndef TICKET_H
 #define TICKET_H
 
 #include <iostream>
 #include <vector>
-#include <string>
 
 class Ticket {
 private:
-    std::string ticketType;
-    int uniqueID;
-    static int nextID;
+    static int nextId;
+    int id;
+    std::string type;
 
 public:
     Ticket();
     Ticket(const std::string& type);
 
     // Accessor methods
-    const std::string& getTicketType() const;
-    int getUniqueID() const;
+    int getId() const;
+    std::string getType() const;
 
-    // Other methods
-    void displayTicketDetails() const;
+    // Other generic methods
+    void displayInfo() const;
+
+    // Rule of 3
+    Ticket(const Ticket& other);
+    Ticket& operator=(const Ticket& other);
+    ~Ticket();
 
     // Overloaded operators
+    friend std::ostream& operator<<(std::ostream& out, const Ticket& ticket);
+    friend std::istream& operator>>(std::istream& in, Ticket& ticket);
     bool operator==(const Ticket& other) const;
-    bool operator<(const Ticket& other) const;
 
-    // Static method
-    static int getNextID();
+private:
+    void copyFrom(const Ticket& other);
+    void clear();
 };
-
-std::ostream& operator<<(std::ostream& os, const Ticket& ticket);
-std::istream& operator>>(std::istream& is, Ticket& ticket);
 
 #endif // TICKET_H

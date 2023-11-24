@@ -1,16 +1,15 @@
+// Event.h
 #ifndef EVENT_H
 #define EVENT_H
 
 #include <iostream>
-#include <ctime>
+#include <string>
 
 class Event {
 private:
     std::string name;
     std::string date;
     std::string time;
-    static int eventCount;  // Static field to count the number of events
-    int eventId;            // Unique ID for each event
 
 public:
     Event();
@@ -20,15 +19,28 @@ public:
     std::string getName() const;
     std::string getDate() const;
     std::string getTime() const;
-    int getEventId() const;
 
     // Other generic methods
-    static int getEventCount(); // Static method to get the total number of events
-    void displayEventInfo() const;
-};
+    void displayInfo() const;
 
-// Overloaded operators
-std::ostream& operator<<(std::ostream& os, const Event& event);
-std::istream& operator>>(std::istream& is, Event& event);
+    // Rule of 3
+    Event(const Event& other);
+    Event& operator=(const Event& other);
+    ~Event();
+
+    // Overloaded operators
+    friend std::ostream& operator<<(std::ostream& out, const Event& event);
+    friend std::istream& operator>>(std::istream& in, Event& event);
+    explicit operator bool() const;
+    bool operator<(const Event& other) const;
+    bool operator>(const Event& other) const;
+    bool operator<=(const Event& other) const;
+    bool operator>=(const Event& other) const;
+    bool operator==(const Event& other) const;
+
+private:
+    void copyFrom(const Event& other);
+    void clear();
+};
 
 #endif // EVENT_H

@@ -225,7 +225,3 @@ void Location::copyFrom(const Location& other) {
     numZones = other.numZones;
     seatsPerRow = other.seatsPerRow;
 }
-
-void Location::clear() {
-    // Perform cleanup for dynamically allocated resources if any
-}

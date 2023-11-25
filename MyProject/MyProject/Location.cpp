@@ -89,93 +89,133 @@ int Location::operator[](int index) const {
     if (index >= 0 && index < static_cast<int>(seatsPerRow.size())) {
         return seatsPerRow[index];
     }
-    return -1; // or throw an exception
+    return -1;
 }
 
 Location Location::operator+(const Location& other) const {
     Location result(*this);
-    // Perform addition operation on relevant fields
+    result.maxSeats += other.maxSeats;
+    result.numRows += other.numRows;
+    result.numZones += other.numZones;
+    for (size_t i = 0; i < seatsPerRow.size() && i < other.seatsPerRow.size(); ++i) {
+        result.seatsPerRow[i] += other.seatsPerRow[i];
+    }
+
     return result;
 }
 
 Location Location::operator-(const Location& other) const {
     Location result(*this);
-    // Perform subtraction operation on relevant fields
+    result.maxSeats -= other.maxSeats;
+    result.numRows -= other.numRows;
+    result.numZones -= other.numZones;
+    for (size_t i = 0; i < seatsPerRow.size() && i < other.seatsPerRow.size(); ++i) {
+        result.seatsPerRow[i] -= other.seatsPerRow[i];
+    }
+
     return result;
 }
 
 Location Location::operator*(int multiplier) const {
     Location result(*this);
-    // Perform multiplication operation on relevant fields
+    result.maxSeats *= multiplier;
+    result.numRows *= multiplier;
+    result.numZones *= multiplier;
+    for (size_t i = 0; i < result.seatsPerRow.size(); ++i) {
+        result.seatsPerRow[i] *= multiplier;
+    }
+
     return result;
 }
 
 Location Location::operator/(int divisor) const {
     if (divisor != 0) {
         Location result(*this);
-        // Perform division operation on relevant fields
+        result.maxSeats /= divisor;
+        result.numRows /= divisor;
+        result.numZones /= divisor;
+        for (size_t i = 0; i < result.seatsPerRow.size(); ++i) {
+            result.seatsPerRow[i] /= divisor;
+        }
+
         return result;
     } else {
-        // Handle division by zero
         return *this;
     }
 }
 
 Location& Location::operator++() {
-    // Implement pre-increment operation on relevant fields
+    ++maxSeats;
+    ++numRows;
+    ++numZones;
+    for (size_t i = 0; i < seatsPerRow.size(); ++i) {
+        ++seatsPerRow[i];
+    }
+
     return *this;
 }
 
 Location Location::operator++(int) {
     Location result(*this);
-    // Implement post-increment operation on relevant fields
+    maxSeats++;
+    numRows++;
+    numZones++;
+    for (size_t i = 0; i < result.seatsPerRow.size(); ++i) {
+        seatsPerRow[i]++;
+    }
+
     return result;
 }
 
 Location& Location::operator--() {
-    // Implement pre-decrement operation on relevant fields
+    --maxSeats;
+    --numRows;
+    --numZones;
+    for (size_t i = 0; i < seatsPerRow.size(); ++i) {
+        --seatsPerRow[i];
+    }
+
     return *this;
 }
 
 Location Location::operator--(int) {
     Location result(*this);
-    // Implement post-decrement operation on relevant fields
+    maxSeats--;
+    numRows--;
+    numZones--;
+    for (size_t i = 0; i < result.seatsPerRow.size(); ++i) {
+        seatsPerRow[i]--;
+    }
+
     return result;
 }
 
 Location::operator int() const {
-    // Implement explicit cast to int based on relevant fields
-    return 0;
+    return maxSeats;
 }
 
 bool Location::operator!() const {
-    // Implement negation operator based on relevant fields
-    return true;
+    return (maxSeats == 0);
 }
 
 bool Location::operator<(const Location& other) const {
-    // Implement less than operator based on relevant fields
-    return true;
+    return (maxSeats < other.maxSeats);
 }
 
 bool Location::operator>(const Location& other) const {
-    // Implement greater than operator based on relevant fields
-    return true;
+    return (maxSeats > other.maxSeats);
 }
 
 bool Location::operator<=(const Location& other) const {
-    // Implement less than or equal to operator based on relevant fields
-    return true;
+    return (maxSeats <= other.maxSeats);
 }
 
 bool Location::operator>=(const Location& other) const {
-    // Implement greater than or equal to operator based on relevant fields
-    return true;
+    return (maxSeats >= other.maxSeats);
 }
 
 bool Location::operator==(const Location& other) const {
-    // Implement equality operator based on relevant fields
-    return true;
+    return (maxSeats == other.maxSeats);
 }
 
 void Location::copyFrom(const Location& other) {

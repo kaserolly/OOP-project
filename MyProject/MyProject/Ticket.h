@@ -5,8 +5,8 @@
 #include <iostream>
 #include <vector>
 
-class Ticket {
-private:
+class Ticket
+{
     static int nextId;
     int id;
     std::string type;
@@ -31,7 +31,6 @@ private:
     friend std::istream& operator>>(std::istream& in, Ticket& ticket);
     bool operator==(const Ticket& other) const;
 
-private:
     void copyFrom(const Ticket& other);
     void clear();
 };

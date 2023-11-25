@@ -5,8 +5,8 @@
 #include <iostream>
 #include <vector>
 
-class Location {
-private:
+class Location
+{
     std::string name;
     int maxSeats;
     int numRows;
@@ -52,7 +52,6 @@ private:
     bool operator>=(const Location& other) const;
     bool operator==(const Location& other) const;
 
-private:
     void copyFrom(const Location& other);
     void clear();
 };

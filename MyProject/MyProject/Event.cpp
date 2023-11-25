@@ -55,40 +55,48 @@ std::istream& operator>>(std::istream& in, Event& event) {
 
 Event::operator bool() const {
     // Implement explicit cast to bool based on relevant fields
-    return true;
+    return !name.empty() && !date.empty() && !time.empty();
 }
 
 bool Event::operator<(const Event& other) const {
     // Implement less than operator based on relevant fields
-    return true;
+    if (date != other.date) {
+        return date < other.date;
+    } else if (time != other.time) {
+        return time < other.time;
+    } else {
+        return name < other.name;
+    }
 }
 
 bool Event::operator>(const Event& other) const {
     // Implement greater than operator based on relevant fields
-    return true;
+    if (date != other.date) {
+        return date > other.date;
+    } else if (time != other.time) {
+        return time > other.time;
+    } else {
+        return name > other.name;
+    }
 }
 
 bool Event::operator<=(const Event& other) const {
     // Implement less than or equal to operator based on relevant fields
-    return true;
+    return !(*this > other);
 }
 
 bool Event::operator>=(const Event& other) const {
     // Implement greater than or equal to operator based on relevant fields
-    return true;
+    return !(*this < other);
 }
 
 bool Event::operator==(const Event& other) const {
     // Implement equality operator based on relevant fields
-    return true;
+    return name == other.name && date == other.date && time == other.time;
 }
 
 void Event::copyFrom(const Event& other) {
     name = other.name;
     date = other.date;
     time = other.time;
-}
-
-void Event::clear() {
-    // Perform cleanup for dynamically allocated resources if any
 }

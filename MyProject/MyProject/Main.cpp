@@ -1,52 +1,29 @@
 #include "Location.h"
 #include "Event.h"
-#include "Ticket.h"
-#include "FootballTicket.h"
-#include "MovieTicket.h"
+#include "TicketManager.h"
 #include <iostream>
-#include <vector>
 
-int main() {
-    // ...
-
-    Location eventLocation;
-    Location eventLocation2;
-
-    eventLocation.loadFromFile("event_location_data.bin");
-
-    std::vector<Event*> events;
-    std::vector<Ticket*> tickets;
-
-    Event* footballMatch = new Event("Football Match", "02/01/2023", "3:00 PM");
-    events.push_back(footballMatch);
-
-    Event* movieEvent = new Event("Movie Premiere", "02/10/2023", "7:30 PM");
-    events.push_back(movieEvent);
-
-    Ticket* footballTicket = new FootballTicket(footballMatch->getName(), "Stadium: Stand 1, Seat: 10");
-    tickets.push_back(footballTicket);
-
-    Ticket* movieTicket = new MovieTicket(movieEvent->getName(), "Movie: Avengers: Endgame, Seat: VIP");
-    tickets.push_back(movieTicket);
-
-    eventLocation.saveToFile("event_location_data.bin");
-
-    for (Event* event : events) {
-        event->processEvent();
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <data_filename>\n";
+        return 1;
     }
 
-    for (Ticket* ticket : tickets) {
-        ticket->sendByEmail("participant@example.com");
-    }
+    /Location footballStadium(1000, 2, 2, {{10, 15, 20}, {12, 18, 24}});
+    Event footballMatch("Football Match", "2023-01-01", "15:00");
 
-    for (Event* event : events) {
-        delete event;
-    }
+    TicketManager ticketManager(footballStadium, footballMatch);
 
-    for (Ticket* ticket : tickets) {
-        delete ticket;
-    }
+    ticketManager.loadTicketsFromFile(argv[1]);
+
+    int choice;
+    do {
+        ticketManager.displayMenu();
+        std::cin >> choice;
+        ticketManager.processUserChoice(choice);
+    } while (choice != 6);
+
+    ticketManager.saveTicketsToFile(argv[1]);
 
     return 0;
 }
-

@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    /Location footballStadium(1000, 2, 2, {{10, 15, 20}, {12, 18, 24}});
+    Location footballStadium(1000, 2, 2, {{10, 15, 20}, {12, 18, 24}});
     Event footballMatch("Football Match", "2023-01-01", "15:00");
 
     TicketManager ticketManager(footballStadium, footballMatch);

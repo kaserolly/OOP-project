@@ -8,8 +8,8 @@ int main(int argc, char* argv[]) {
         std::cerr << "Usage: " << argv[0] << " <data_filename>\n";
         return 1;
     }
-
-    Location footballStadium(1000, 2, 2, {{10, 15, 20}, {12, 18, 24}});
+    std::vector<int> seatsperrow = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    Location footballStadium("nume", 1000, 10, 10, seatsperrow);
     Event footballMatch("Football Match", "2023-01-01", "15:00");
 
     TicketManager ticketManager(footballStadium, footballMatch);

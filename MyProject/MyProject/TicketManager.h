@@ -5,7 +5,6 @@
 #include <vector>
 
 class TicketManager {
-private:
     std::vector<Ticket> issuedTickets;
     Location location;
     Event event;

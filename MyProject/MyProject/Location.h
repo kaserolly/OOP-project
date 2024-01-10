@@ -13,6 +13,8 @@ class Location
     int numZones;
     std::vector<int> seatsPerRow;
 
+    public:
+
     Location();
     Location(const std::string& name, int maxSeats, int numRows, int numZones, const std::vector<int>& seatsPerRow);
 

@@ -11,6 +11,8 @@ class Event
     std::string date;
     std::string time;
 
+    public:
+
     Event();
     Event(const std::string& name, const std::string& date, const std::string& time);
 
